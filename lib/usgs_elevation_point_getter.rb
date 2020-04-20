@@ -7,7 +7,7 @@ module USGSElevationPointGetter
   # e.g.
   # [[12.34, 45.67], [21.21, 98.98], ...]
   def self.elevations_for_points(points)
-    @result = {}
+    elevations = {}
 
     batch_number = 1
     points.each_slice(50) do |batch_of_points|
@@ -19,7 +19,7 @@ module USGSElevationPointGetter
           long      = point.last
           elevation = elevation_for_lat_long(lat, long)
 
-          @result[point] = elevation
+          elevations[point] = elevation
         end
       end
 
@@ -28,7 +28,7 @@ module USGSElevationPointGetter
       batch_number += 1
     end
 
-    @result
+    elevations
   end
 
   private
